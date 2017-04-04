@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css>
+    <style media="screen">
+        .slides {
+            width: 300%;
+            background: gray;
+            transition: 0.3s ease;
+        }
+        
+        .slide {
+            width: 250px;
+            height: 170px;
+            background: #4DC7A0;
+            margin: 10px;
+            float: left;
+            color: white;
+        }
+        
+        .photos {
+            overflow: hidden;
+        }
+        
+        .icons {
+            margin-left: 40%;
+        }
+        
+        i {
+            margin: 30px;
+            cursor: pointer;
+        }
+        
+        .clear {
+            clear: both;
+        }
+        
+        .main {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="slides">
+            <div class="slide">slide 1</div>
+            <div class="slide">slide 2</div>
+            <div class="slide">slide 3</div>
+            <div class="slide">slide 4</div>
+            <div class="slide">slide 5</div>
+            <div class="slide">slide 6</div>
+            <div class="slide">slide 7</div>
+            <div class="slide">slide 8</div>
+            <div class="slide">slide 9</div>
+        </div>
+        <div class="clear"></div>
+        <div class="icons">
+            <i class="fa fa-chevron-left fa-lg" aria-hidden="true"> PREV</i>
+            <i class="fa fa-chevron-right fa-lg" aria-hidden="true"> NEXT</i>
+        </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    function Slider(className) {
+        var self = this;
+        self.main = document.getElementsByClassName("icons")[0];
+        this.main.children[1].addEventListener("click", next);
+        self.margin = 0;
+        self.prev = 0;
+        self.slide_div_length = document.getElementsByClassName("slide")[0].clientWidth; // 1 slide divin width -in olcur
+        self.slider_length = document.querySelectorAll(".slides .slide").length; // bu slides divin icinde nece dene slide div oldugun qaytariri yeni 9
+        function next() {
+            self.prev++;
+            console.log("next" + self.prev);
+            self.margin -= self.slide_div_length + 20; // burada divin olcusu + margin qeder cixmasi ucun yazdim margini-de "slide_div_length" kimi goturmek olardi
+            self.slides_div_margin = document.getElementsByClassName("slides")[0].style.marginLeft = self.margin + 'px'; //her click-liyende slides divi-i hereket edir lefte dogru
+            console.log(self.slides_div_margin);
+            if (self.prev >= self.slider_length - 4) {
+                self.margin = 0;
+                self.slides_div_margin = document.getElementsByClassName("slides")[0].style.marginLeft = self.margin + 'px'; //her click-liyende slides divi-i hereket edir lefte dogru
+                self.prev = 0;
+            }
+        }
+        self.main.children[0].addEventListener("click", function () {
+            self.prev--;
+            self.margin += self.slide_div_length + 20;
+            self.slides_div_margin = document.getElementsByClassName("slides")[0].style.marginLeft = self.margin + 'px'; //her click-liyende slides divi-i hereket edir lefte dogru
+            console.log("prev" + self.prev);
+            if (self.prev <= 0) {
+                self.margin = -(self.slide_div_length + 20) * 4;
+                console.log(self.slide_div_length);
+                self.prev = 5;
+                self.slides_div_margin = document.getElementsByClassName("slides")[0].style.marginLeft = self.margin + 'px'; //her click-liyende slides divi-i hereket edir lefte dogru
+            }
+        });
+    }
+    var main = new Slider('main');
+
+</script>
